@@ -1,8 +1,6 @@
-package co.empresa.productoservice.delivery.exception;
+package co.empresa.semestreservice.delivery.exception;
 
-
-import co.empresa.productoservice.domain.exception.*;
-import co.empresa.productoservice.domain.model.Producto;
+import co.empresa.semestreservice.domain.exception.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +16,12 @@ public class GlobalExceptionHandler {
 
     private static final String ERROR = "error";
     private static final String MENSAJE = "mensaje";
-    private static final String PRODUCTO = "producto";
-    private static final String PRODUCTOS = "productos";
+    private static final String SEMESTRE = "semestre";
+    private static final String SEMESTRES = "semestres";
     private static final String STATUS = "status";
 
-    @ExceptionHandler(PaginaSinProductosException.class)
-    public ResponseEntity<Map<String, Object>> handlePaginaSinProductos(PaginaSinProductosException ex) {
+    @ExceptionHandler(PaginaSinSemestresException.class)
+    public ResponseEntity<Map<String, Object>> handlePaginaSinSemestres(PaginaSinSemestresException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put(MENSAJE, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -36,24 +34,24 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    @ExceptionHandler(NoHayProductosException.class)
-    public ResponseEntity<Map<String, Object>> handleNoHayProductos(NoHayProductosException ex) {
+    @ExceptionHandler(NoHaySemestresException.class)
+    public ResponseEntity<Map<String, Object>> handleNoHaySemestres(NoHaySemestresException ex) {
         Map<String, Object> response = new HashMap<>();
-        response.put(MENSAJE, "No hay productos en la base de datos.");
-        response.put(PRODUCTOS, null); // para que sea siempre el mismo campo
-        return ResponseEntity.status(HttpStatus.OK).body(response); // 200 pero lista vacía
+        response.put(MENSAJE, "No hay semestres en la base de datos.");
+        response.put(SEMESTRES, null); // para mantener consistencia
+        return ResponseEntity.status(HttpStatus.OK).body(response); // 200 con lista vacía
     }
 
-    @ExceptionHandler(ProductoNoEncontradoException.class)
-    public ResponseEntity<Map<String, Object>> handleProductoNoEncontrado(ProductoNoEncontradoException ex) {
+    @ExceptionHandler(SemestreNoEncontradoException.class)
+    public ResponseEntity<Map<String, Object>> handleSemestreNoEncontrado(SemestreNoEncontradoException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put(ERROR, ex.getMessage());
         response.put(STATUS, HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
-    @ExceptionHandler(ProductoExistenteException.class)
-    public ResponseEntity<Map<String, Object>> handleProductoExistente(ProductoExistenteException ex) {
+    @ExceptionHandler(SemestreExistenteException.class)
+    public ResponseEntity<Map<String, Object>> handleSemestreExistente(SemestreExistenteException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put(ERROR, ex.getMessage());
         response.put(STATUS, HttpStatus.BAD_REQUEST.value());
@@ -80,7 +78,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleValidationException(ValidationException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put(MENSAJE, ex.getMessage());
-        response.put(ERROR, ex.getMessage());
 
         List<String> errors = ex.result.getFieldErrors()
                 .stream()
@@ -89,6 +86,5 @@ public class GlobalExceptionHandler {
 
         response.put(ERROR, errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-
     }
 }
