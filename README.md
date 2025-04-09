@@ -16,19 +16,19 @@ curl -X GET http://localhost:8080/api/v1/semestre-service/semestre/page/0
 ```
 ### 🔹 Obtener un semestre por ID
 ```bash
-curl -X GET http://localhost:8080/api/v1/semestre-service/semestres/2
+curl -X GET http://localhost:8080/api/v1/semestre-service/semestres/1
 ```
 ### 🔹 Crear un semestre
 ```bash
-curl -X POST http://localhost:8080/api/v1/semestre-service/semestres -H "Content-Type: application/json" -d "{"activo":true,"fechaInicio":"2025-01-01","fechaFin":"2025-06-01","idPrograma":2,"numeroSemestre":6}"
+curl -X POST http://localhost:8080/api/v1/semestre-service/semestres -H "Content-Type: application/json" -d "{\"activo\":true,\"fechaInicio\":\"2025-01-15\",\"fechaFin\":\"2025-06-15\",\"idPrograma\":1,\"numeroSemestre\":1}"
 ```
 ### 🔹 Actualizar un semestre
 ```bash
-curl -X PUT http://localhost:8080/api/v1/semestre-service/semestres -H "Content-Type: application/json" -d "{"id":2,"activo":true,"fechaInicio":"2025-01-01","fechaFin":"2025-06-01","idPrograma":2,"numeroSemestre":6}"
+curl -X PUT http://localhost:8080/api/v1/semestre-service/semestres -H "Content-Type: application/json" -d "{\"id\":1,\"activo\":false,\"fechaInicio\":\"2025-01-20\",\"fechaFin\":\"2025-06-20\",\"idPrograma\":1,\"numeroSemestre\":1}"
 ```
 ### 🔹 Eliminar un semestre
 ```bash
-curl -X DELETE http://localhost:8080/api/v1/semestre-service/semestres -H "Content-Type: application/json" -d "{"id":2,"activo":true,"fechaInicio":"2025-01-01","fechaFin":"2025-06-01","idPrograma":2,"numeroSemestre":6}"
+curl -X DELETE http://localhost:8080/api/v1/semestre-service/semestres -H "Content-Type: application/json" -d "{\"id\":1}"
 ```
 
 ## 🗃️ Modelo de datos
