@@ -15,6 +15,13 @@ services:
     networks:
       - red-backend-app
 
+  eureka-server:
+    image: joseloaiza01/eureka-server:latest
+    ports:
+      - "8761:8761"
+    networks:
+      -  red-backend-app
+
   semestre-service:
     image: joseloaiza01/semestre-service:latest
     container_name: semestre-service
@@ -29,6 +36,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=devdb
       - SPRING_DATASOURCE_PASSWORD=a1b2c3d4
       - JPA_DDL=create-drop
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     profiles:
       - app
     networks:
